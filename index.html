@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            height: 100vh;
+        }
+        .canvas {
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="my-canvas" class="canvas" width="500" height="500"></canvas>
+
+<script>
+  var canvas = document.getElementById("my-canvas");
+
+  if (canvas.getContext) {
+
+    var ctx = canvas.getContext('2d');
+
+    //createLinearGradient(x0, y0, x1, y1)
+    var lingrad = ctx.createLinearGradient(0,0,0,500);
+    //addColorStop(offset, color)
+    lingrad.addColorStop(0, '#00ABEB');
+    lingrad.addColorStop(0.7, '#fff');
+    lingrad.addColorStop(0.7, '#66CC00');
+    lingrad.addColorStop(1, '#fff');
+    ctx.fillStyle = lingrad; //подключение градиента
+    ctx.fillRect(0,0,500,500);
+
+    //прямоугольник
+    ctx.fillStyle = '#787878';
+    ctx.fillRect(200,200,150,150); //заливает прямоугольную область
+    ctx.strokeStyle = '#000';
+    ctx.strokeRect(220,220,60,75); //обводит прямоугольную область
+    ctx.clearRect(225,225,50,65); //очищает прям.обл, делая ее прозрачной
+
+
+    //triangle
+    ctx.fillStyle = '#555555';
+    ctx.beginPath(); //заливает прямоугольную область
+    ctx.moveTo(180,210);
+    ctx.lineTo(370,210);
+    ctx.lineTo(275,140);
+    ctx.fill();
+
+    //окружность + кривая
+    ctx.fillStyle = 'yellow';
+    ctx.beginPath();
+    ctx.moveTo(400,50);
+    //arc(x, y, radius, startAngle, endAngle, anticlockwise)
+    ctx.arc(400,50,30,0.25*Math.PI,1.75*Math.PI);
+    ctx.lineTo(400,50);
+    ctx.fill();
+
+    //кривая Безье
+    ctx.fillStyle = '#ff2455';
+    ctx.beginPath();
+    ctx.moveTo(75,40);
+    //bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)
+    ctx.bezierCurveTo(75,37,70,25,50,25);
+    ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
+    ctx.bezierCurveTo(20,80,40,102,75,120);
+    ctx.bezierCurveTo(110,102,130,80,130,62.5);
+    ctx.bezierCurveTo(130,62.5,130,25,100,25);
+    ctx.bezierCurveTo(85,25,75,37,75,40);
+    ctx.fill();
+
+  }
+
+</script>
+
+</body>
+</html>
